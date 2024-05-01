@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Channel Volume Control</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Channel Volume Control</h1>
+<button onclick="playAudio()">Play</button>
+<button onclick="stopAudio()">Stop</button>
+<div>
+  <label for="leftVolume">Left Channel Volume:</label>
+  <input type="range" id="leftVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'left')">
+</div>
+<div>
+  <label for="rightVolume">Right Channel Volume:</label>
+  <input type="range" id="rightVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'right')">
+</div>
+<script src="script.js"></script>
+</body>
+</html>

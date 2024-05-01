@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  input[type="range"] {
+    width: 300px;
+  }
+  
