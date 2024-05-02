@@ -17,6 +17,12 @@
   <label for="rightVolume">Right Channel Volume:</label>
   <input type="range" id="rightVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'right')">
 </div>
+<div id="accelerometer">
+  <h2>Accelerometer Data</h2>
+  <p>X: <span id="accelX">0</span></p>
+  <p>Y: <span id="accelY">0</span></p>
+  <p>Z: <span id="accelZ">0</span></p>
+</div>  
 <script src="script.js"></script>
 </body>
 </html>

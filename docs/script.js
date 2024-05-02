@@ -46,3 +46,20 @@ function adjustVolume(value, channel) {
     rightGainNode.gain.value = volume;
   }
 }
+
+// 加速度センサーからデータを取得し、表示する関数
+function setupAccelerometer() {
+  if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (event) => {
+      document.getElementById('accelX').textContent = event.accelerationIncludingGravity.x.toFixed(2);
+      document.getElementById('accelY').textContent = event.accelerationIncludingGravity.y.toFixed(2);
+      document.getElementById('accelZ').textContent = event.accelerationIncludingGravity.z.toFixed(2);
+    }, true);
+  } else {
+    document.getElementById('accelerometer').innerHTML = "<p>Accelerometer not supported.</p>";
+  }
+}
+
+// ページが完全に読み込まれたときに加速度センサーをセットアップ
+document.addEventListener('DOMContentLoaded', setupAccelerometer);
+
