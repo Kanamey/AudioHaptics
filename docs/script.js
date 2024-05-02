@@ -48,18 +48,31 @@ function adjustVolume(value, channel) {
 }
 
 // 加速度センサーからデータを取得し、表示する関数
+// 加速度センサーからデータを取得し、表示する関数
 function setupAccelerometer() {
   if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', (event) => {
+      // 重力を含む加速度データ
       document.getElementById('accelX').textContent = event.accelerationIncludingGravity.x.toFixed(2);
       document.getElementById('accelY').textContent = event.accelerationIncludingGravity.y.toFixed(2);
       document.getElementById('accelZ').textContent = event.accelerationIncludingGravity.z.toFixed(2);
+      
+      // 重力を含まない加速度データ
+      if (event.acceleration) {
+        document.getElementById('accelXNoGrav').textContent = event.acceleration.x.toFixed(2);
+        document.getElementById('accelYNoGrav').textContent = event.acceleration.y.toFixed(2);
+        document.getElementById('accelZNoGrav').textContent = event.acceleration.z.toFixed(2);
+      } else {
+        document.getElementById('accelerometerNoGravity').innerHTML = "<p>Non-gravitational accelerometer not supported.</p>";
+      }
     }, true);
   } else {
     document.getElementById('accelerometer').innerHTML = "<p>Accelerometer not supported.</p>";
+    document.getElementById('accelerometerNoGravity').innerHTML = "<p>Non-gravitational accelerometer not supported.</p>";
   }
 }
 
 // ページが完全に読み込まれたときに加速度センサーをセットアップ
 document.addEventListener('DOMContentLoaded', setupAccelerometer);
+
 
