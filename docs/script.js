@@ -78,39 +78,76 @@ function adjustVolume(value, channel) {
 //   incrementEventCount();
 // }
 
-function handleOrientation(event) {
-  updateFieldIfNotNull('Orientation_a', event.alpha);
-  updateFieldIfNotNull('Orientation_b', event.beta);
-  updateFieldIfNotNull('Orientation_g', event.gamma);
-  incrementEventCount();
-}
+// function handleOrientation(event) {
+//   updateFieldIfNotNull('Orientation_a', event.alpha);
+//   updateFieldIfNotNull('Orientation_b', event.beta);
+//   updateFieldIfNotNull('Orientation_g', event.gamma);
+//   incrementEventCount();
+// }
 
-function incrementEventCount(){
-  let counterElement = document.getElementById("num-observed-events")
-  let eventCount = parseInt(counterElement.innerHTML)
-  counterElement.innerHTML = eventCount + 1;
-}
+// function incrementEventCount(){
+//   let counterElement = document.getElementById("num-observed-events")
+//   let eventCount = parseInt(counterElement.innerHTML)
+//   counterElement.innerHTML = eventCount + 1;
+// }
 
-function updateFieldIfNotNull(fieldName, value, precision=10){
-  if (value != null)
-    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-}
+// function updateFieldIfNotNull(fieldName, value, precision=10){
+//   if (value != null)
+//     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
+// }
 
-function handleMotion(event) {
-  updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
-  updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
-  updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
+// function handleMotion(event) {
+//   updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
+//   updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
+//   updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
 
-  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+//   updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
+//   updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
+//   updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
 
-  updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+//   updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
 
-  updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
-  updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
-  updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
-  incrementEventCount();
+//   updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
+//   updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
+//   updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+//   incrementEventCount();
+// }
+
+// Get Acceleration
+function setupAccelerometer() {
+  if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (event) => {
+      // Acceleration including gravity
+      updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
+      updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
+      updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
+
+      // Acceleration without gravity
+      if (event.acceleration) {
+        updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
+        updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
+        updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+      } else {
+        document.getElementById('accelerometerNoGravity').innerHTML = "<p>Non-gravitational accelerometer not supported.</p>";
+      }
+
+      // Orientation (alpha, beta, gamma)
+      handleOrientation(event);
+
+      // Gyroscope data
+      updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
+      updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+      updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
+
+      // Data interval
+      updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+
+      incrementEventCount();
+    }, true);
+  } else {
+    document.getElementById('accelerometer').innerHTML = "<p>Accelerometer not supported.</p>";
+    document.getElementById('accelerometerNoGravity').innerHTML = "<p>Non-gravitational accelerometer not supported.</p>";
+  }
 }
 
 // ページが完全に読み込まれたときに加速度センサーをセットアップ
