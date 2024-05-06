@@ -6,54 +6,80 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Channel Volume Control</h1>
-<button onclick="playAudio()">Play</button>
-<button onclick="stopAudio()">Stop</button>
-<div>
-  <label for="leftVolume">Left Channel Volume:</label>
-  <input type="range" id="leftVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'left')">
-</div>
-<div>
-  <label for="rightVolume">Right Channel Volume:</label>
-  <input type="range" id="rightVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'right')">
-</div>
+  <button onclick="consoleTest()">test</button>
+  <h1>Channel Volume Control</h1>
+  <button onclick="playAudio()">Play</button>
+  <button onclick="stopAudio()">Stop</button>
+  <div>
+    <label for="leftVolume">Left Channel Volume:</label>
+    <input type="range" id="leftVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'left')">
+  </div>
+  <div>
+    <label for="rightVolume">Right Channel Volume:</label>
+    <input type="range" id="rightVolume" min="0" max="1" step="0.01" value="0" oninput="adjustVolume(this.value, 'right')">
+  </div>
 
-<div class="p-3 mb-2 bg-secondary" id="demo-div">
-  <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
-  <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
-    
+  <div class="p-3 mb-2 bg-secondary" id="demo-div">
+    <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
+    <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
+      
 
-  <h4 style="margin-top:0.75rem;">Orientation</h4>
-  <ul>
-    <li>X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span></li>
-    <li>Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span></li>
-    <li>Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span></li>
-  </ul>
+    <h4 style="margin-top:0.75rem;">Orientation</h4>
+    <ul>
+      <li>X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span></li>
+      <li>Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span></li>
+      <li>Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span></li>
+    </ul>
 
-  <h4>Accelerometer</h4>
-  <ul>
-    <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-  </ul>
+    <h4>Accelerometer</h4>
+    <ul>
+      <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
+    </ul>
 
-  <h4>Accelerometer including gravity</h4>
+    <h4>Accelerometer including gravity</h4>
 
-  <ul>
-    <li>X-axis: <span id="Accelerometer_gx">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Y-axis: <span id="Accelerometer_gy">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Z-axis: <span id="Accelerometer_gz">0</span><span> m/s<sup>2</sup></span></li>
-  </ul>
+    <ul>
+      <li>X-axis: <span id="Accelerometer_gx">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Y-axis: <span id="Accelerometer_gy">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Z-axis: <span id="Accelerometer_gz">0</span><span> m/s<sup>2</sup></span></li>
+    </ul>
 
-  <h4>Gyroscope</h4>
-  <ul>
-    <li>X-axis: <span id="Gyroscope_x">0</span><span>&deg;/s</span></li>
-    <li>Y-axis: <span id="Gyroscope_y">0</span><span>&deg;/s</span></li>
-    <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
-  </ul>
-</div>
+    <h4>Gyroscope</h4>
+    <ul>
+      <li>X-axis: <span id="Gyroscope_x">0</span><span>&deg;/s</span></li>
+      <li>Y-axis: <span id="Gyroscope_y">0</span><span>&deg;/s</span></li>
+      <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
+    </ul>
+  </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
+
+  <!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDm5ZgfzwCirfRzDfgxyVwuiDf-Vl8LfTQ",
+      authDomain: "audiohaptics-fffec.firebaseapp.com",
+      projectId: "audiohaptics-fffec",
+      storageBucket: "audiohaptics-fffec.appspot.com",
+      messagingSenderId: "562234848789",
+      appId: "1:562234848789:web:145924f508d03ac60b001c",
+      measurementId: "G-BD7ZJ6SVC6"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script> -->
+
 </body>
 </html>

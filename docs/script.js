@@ -38,6 +38,10 @@ function stopAudio() {
   }
 }
 
+function consoleTest() {
+  console.log("finally!");
+}
+
 function adjustVolume(value, channel) {
   const volume = parseFloat(value);
   if (channel === 'left') {
